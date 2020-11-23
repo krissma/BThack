@@ -147,6 +147,7 @@ class PatternMatcher:
         global current_target_addr
 
         pos = packet.find(self.pattern)
+        print("Packet printed by write_packet ", packet)
         if pos != -1:
             pattern_position = pos - 10
             sniffing = False
@@ -187,7 +188,7 @@ def main():
     #signal.signal(signal.SIGINT, signal_handler)
     #signal.signal(signal.SIGTERM, signal_handler)
 
-    if(args.init_dev_num is None or args.resp_dev_num is None):
+    if (args.init_dev_num is None or args.resp_dev_num is None):
         process = subprocess.Popen(
             ['lsusb'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         stdout, _ = process.communicate()
@@ -232,14 +233,17 @@ def main():
 
     if(args.pattern_position is None):
         out = PatternMatcher(pattern=args.target_pattern)
+        print("This is out: ", out)
         # start sniffer for pattern detection
         try:
             sniffer = CLIAdvertisementsSniffer(
                 verbose=True, output=out, no_stdout=True)
+            print("Coming out of CLIAdvertismentSniffer")
         except DeviceError as error:
             print(
                 'Error: Please connect a compatible Micro:Bit in order to use BtleJack for jamming')
             exit(-1)
+
         sniffing_packet_processing()
         args.pattern_position = pattern_position
 

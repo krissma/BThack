@@ -2,7 +2,7 @@
 # Script to test sending a packet
 # By krissma
 
-#from __future__ import print_function, unicode_literals
+# from __future__ import print_function, unicode_literals
 
 from examples import custom_style_2
 from PyInquirer import style_from_dict, Token, prompt, Separator
@@ -40,7 +40,7 @@ sniffer = None
 sniffing = True
 sniffer_mutex = threading.Lock()
 pattern_position = None
-target_pattern = "\x03\x02\x02\x02"
+target_pattern = ""
 
 # Helper functions
 
@@ -76,17 +76,23 @@ def main():
     # device eventuell angeben mit devices=[comports()[0]])???
     try:
         print(f"Sending")
-        sender = CLISendTestPacket(verbose=True)
+        sender = CLISendTestPacket(verbose=True, channel=37)
         print("initiated sender")
-        print("Test2")
     except DeviceError as error:
-        print('Error 1: Please connect a compatible Micro:Bit in order to use BtleJack for jamming')
+        print(
+            'Error: Please connect a compatible Micro:Bit in order to use BtleJack for jamming')
         exit(-1)
 
+    while(True):
+        sender.send_test_packet()
+        time.sleep(SLEEP_TIME_BETWEEN_PACKET_PROCESSING)
+
+    """
     if (target_pattern is not None):
         print("Target pattern: ", target_pattern)
         target_pattern = target_pattern.encode()
         print("Target_pattern.encode(): ", target_pattern)
+
 
     out = PatternMatcher(pattern=target_pattern)
     # start sniffer for pattern detection
@@ -96,8 +102,11 @@ def main():
     except DeviceError as error:
         print('Error: Please connect a compatible Micro:Bit in order to use BtleJack for jamming')
         exit(-1)
+    """
     # TODO: brauche ich sniffing_packet_processing()?
-    sniffing_packet_processing()
+
+
+# sniffing_packet_processing()
 
 
 def sniffing_packet_processing():
@@ -118,9 +127,9 @@ def sniffing_packet_processing():
 """
 
 def search_target(scan_dev_num, target_pattern):
-  
-   Scans for nearby BLE devices and offers pattern matching on their names or menu selection 
-  
+
+   Scans for nearby BLE devices and offers pattern matching on their names or menu selection
+
     while(True):
         print(f"Conducting BLE scan ({SCAN_TIMEOUT_SECONDS} seconds)")
         begin_line_counter = 0
