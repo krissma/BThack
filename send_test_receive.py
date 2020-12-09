@@ -4,7 +4,6 @@
 
 #from __future__ import print_function, unicode_literals
 
-from examples import custom_style_2
 from PyInquirer import style_from_dict, Token, prompt, Separator
 from pprint import pprint
 import argparse
@@ -94,8 +93,9 @@ def main():
         print("Target_pattern.encode(): ", target_pattern)
 
     out = PatternMatcher(pattern=target_pattern)
-    print("This is out: ", out)
+    #print("This is out: ", out)
     # start sniffer for pattern detection
+    i = 1
     try:
         sniffer = CLIAdvertisementsSniffer(
             verbose=True, channel=37, output=None, policy={"policy_type": "blacklist", "rules": []}, accept_invalid_crc=True, no_stdout=True)
@@ -120,66 +120,6 @@ def sniffing_packet_processing():
 
     sniffer.disable_adv_sniffing()
 
-
-# TODO adapt this for receiving a message? Do I actually need this?
-"""
-
-def search_target(scan_dev_num, target_pattern):
-  
-   Scans for nearby BLE devices and offers pattern matching on their names or menu selection 
-  
-    while(True):
-        print(f"Conducting BLE scan ({SCAN_TIMEOUT_SECONDS} seconds)")
-        begin_line_counter = 0
-        target_options = {}
-        # Start BLE scan
-        process = subprocess.Popen(
-            [DISCOVERY_BINARY, str(scan_dev_num)], stdout=subprocess.PIPE)
-        poll_obj = select.poll()
-        poll_obj.register(process.stdout, select.POLLIN)
-        timeout = time.time() + SCAN_TIMEOUT_SECONDS
-        while True:
-
-            # Stop process gracefuly after time-limit
-            if(time.time() > timeout):
-                process.send_signal(signal.SIGINT)
-
-            # Abort if process died/killed
-            return_code = process.poll()
-            if return_code is not None:
-                break
-
-            # Check if data is available
-            if(not poll_obj.poll(0)):
-                continue
-
-            # Check results to allow pattern matching
-            result = process.stdout.readline()
-            # Ugly hack to skip first lines of output
-            if(begin_line_counter < 6):
-                begin_line_counter += 1
-                continue
-
-            result = result.strip().decode().split(', ')
-
-            try:
-                result[0] = is_valid_mac(result[0])
-            except(argparse.ArgumentTypeError):
-                continue
-
-            if len(result) == 3 and result[2] is not None and target_pattern is not None and target_pattern in result[2]:
-                print(f"Found target: {result}")
-                return result[0]
-            if result[0] not in target_options or target_options[result[0]] is None:
-                if(len(result) < 3):
-                    target_options[result[0]] = None
-                    continue
-                target_options[result[0]] = result[2]
-
-        if(target_options is not None):
-            print("Could not identify target -> prompting alternatives")
-
-"""
 
 if __name__ == "__main__":
     main()

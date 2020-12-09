@@ -4,7 +4,6 @@
 
 # from __future__ import print_function, unicode_literals
 
-from examples import custom_style_2
 from PyInquirer import style_from_dict, Token, prompt, Separator
 from pprint import pprint
 import argparse
