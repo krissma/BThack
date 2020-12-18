@@ -1,8 +1,8 @@
 [submodule "btstack"]
 	path = btstack
-	url = https://github.com/lupinglui/btstack.git
-	branch = bthack_mods
+	url = https://github.com/krissma/btstack.git
+	branch = btclassic
 [submodule "btlejack"]
 	path = btlejack
-	url = https://github.com/maxdos64/btlejack.git
-	branch = disable_fix
+	url = https://github.com/krissma/btlejack.git
+	branch = btclassic
