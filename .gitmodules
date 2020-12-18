@@ -1,7 +1,7 @@
 [submodule "btstack"]
 	path = btstack
 	url = https://github.com/krissma/btstack.git
-	branch = btclassic
+	branch = bthack_mods
 [submodule "btlejack"]
 	path = btlejack
 	url = https://github.com/krissma/btlejack.git
