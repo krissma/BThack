@@ -147,7 +147,7 @@ class PatternMatcher:
         global current_target_addr
 
         pos = packet.find(self.pattern)
-        #print("Packet printed by write_packet ", packet)
+        print("Packet printed by write_packet ", packet)
         if pos != -1:
             pattern_position = pos - 10
             sniffing = False
@@ -233,7 +233,7 @@ def main():
 
     if(args.pattern_position is None):
         out = PatternMatcher(pattern=args.target_pattern)
-        print("This is out: ", out)
+        #print("This is out: ", out)
         # start sniffer for pattern detection
         try:
             sniffer = CLIAdvertisementsSniffer(

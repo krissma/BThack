@@ -98,7 +98,7 @@ def main():
     i = 1
     try:
         sniffer = CLIAdvertisementsSniffer(
-            verbose=True, channel=37, output=None, policy={"policy_type": "blacklist", "rules": []}, accept_invalid_crc=True, no_stdout=True)
+            verbose=True, channel=60, output=None, policy={"policy_type": "blacklist", "rules": []}, accept_invalid_crc=True, no_stdout=True)
     except DeviceError as error:
         print(
             'Error: Please connect a compatible Micro:Bit in order to use BtleJack for jamming')

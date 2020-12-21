@@ -70,12 +70,14 @@ def main():
     global sender
     global sniffer
     global target_pattern
+    channel = 40; 
 
     # Start sending
     # device eventuell angeben mit devices=[comports()[0]])???
+    
     try:
         print(f"Sending")
-        sender = CLISendTestPacket(verbose=True, channel=37)
+        sender = CLISendTestPacket(verbose=True, channel=channel)
         print("initiated sender")
     except DeviceError as error:
         print(
@@ -83,7 +85,7 @@ def main():
         exit(-1)
 
     while(True):
-        sender.send_test_packet()
+        sender.send_test_packet(channel)
         time.sleep(SLEEP_TIME_BETWEEN_PACKET_PROCESSING)
 
     """
