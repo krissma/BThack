@@ -70,7 +70,7 @@ def main():
     global sender
     global sniffer
     global target_pattern
-    channel = 40; 
+    channel = 60; 
 
     # Start sending
     # device eventuell angeben mit devices=[comports()[0]])???
@@ -84,7 +84,12 @@ def main():
             'Error: Please connect a compatible Micro:Bit in order to use BtleJack for jamming')
         exit(-1)
 
-    while(True):
+    while (True):
+        #if (channel == 87):
+            #channel = 0
+        #else:
+           # channel += 1
+
         sender.send_test_packet(channel)
         time.sleep(SLEEP_TIME_BETWEEN_PACKET_PROCESSING)
 
