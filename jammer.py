@@ -24,7 +24,7 @@ import sys
 BTLEJACK_SOURCE_PATH = "btlejack/"
 DISCOVERY_BINARY = "discovery/discovery"
 SCAN_TIMEOUT_SECONDS = 7
-SLEEP_TIME_BETWEEN_PACKET_PROCESSING = 0.1
+SLEEP_TIME_BETWEEN_PACKET_PROCESSING = 0.01
 PATTERN_POSITION_MAC = 2
 
 
@@ -85,7 +85,6 @@ def main():
     global target_pattern 
     global pattern_position
     global jammer_mutex 
-    #TODO what is pattern position?
 
 
     # mode 00 is original btlejack mode, mode 01 is modified BT LE mode, mode 02 is BT Classic mode 

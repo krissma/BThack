@@ -99,8 +99,6 @@ def main():
                         0xAA, 0x55, 0xAA, 0x55, 0xAA, 0x55])
 
     # Start sending
-    # device eventuell angeben mit devices=[comports()[0]])???
-
     out = PatternMatcher(pattern = target_pattern)
     
     # start sniffer for pattern detection

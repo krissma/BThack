@@ -91,7 +91,7 @@ def main():
                    # 0x11, 0x11, 0x11, 0x11, 0x11, 0x11])
 
 
-    packet = bytes([mode, channel, 0xAA, 0x55, 0xAA, 0x55, 0xAA, 0x55, 0xAA, 0x55, 0xAA, 0x55,
+    packet = bytes([0xAA, 0x55, 0xAA, 0x55, 0xAA, 0x55, 0xAA, 0x55, 0xAA, 0x55,
                     0xAA, 0x55, 0xAA, 0x55, 0xAA, 0x55, 0xAA, 0x55, 0xAA, 0x55,
                     0xAA, 0x55, 0xAA, 0x55, 0xAA, 0x55, 0xAA, 0x55, 0xAA, 0x55,
                     0xAA, 0x55, 0xAA, 0x55, 0xAA, 0x55, 0xAA, 0x55, 0xAA, 0x55,
@@ -101,7 +101,7 @@ def main():
     # device eventuell angeben mit devices=[comports()[0]])???
     try:
         print(f"Sending")
-        sender = CLISendTestPacket(verbose=True, channel=5, payload=packet)
+        sender = CLISendTestPacket(verbose=True, channel=channel, mode=mode, payload=packet)
         print("initiated sender")
     except DeviceError as error:
         print(
@@ -113,7 +113,7 @@ def main():
         #if (counter != 0 and counter % 8 == 0):
             #SLEEP_TIME_BETWEEN_PACKET_PROCESSING -= 0.001
             #print("New sleep time: {} at packet {} ".format(SLEEP_TIME_BETWEEN_PACKET_PROCESSING, counter))
-        sender.send_test_packet(packet)
+        sender.send_test_packet(packet, channel, mode)
         counter += 1
         print("Sent %d packets" %(counter+2))
         time.sleep(SLEEP_TIME_BETWEEN_PACKET_PROCESSING)
