@@ -88,7 +88,7 @@ def main():
 
 
     # mode 00 is original btlejack mode, mode 01 is modified BT LE mode, mode 02 is BT Classic mode 
-    mode = 0x02; 
+    mode = 0x01; 
 
     #current_target_addr = "094d6f74"
     current_target_addr = "FFAC123D"
@@ -104,7 +104,7 @@ def main():
     # Start jammer
     try:
         print(f"jamming {target_pattern} at {pattern_position}")
-        jammer = CLIAdvertisementsJammer(verbose=False, channel = 5, mode=mode, pattern=target_pattern, position=pattern_position)
+        jammer = CLIAdvertisementsJammer(verbose=False, channel = 37, mode=mode, pattern=target_pattern, position=pattern_position)
     except DeviceError as error:
         print('Error: Please connect a compatible Micro:Bit in order to use BtleJack for jamming')
         exit(-1)

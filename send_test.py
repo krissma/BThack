@@ -72,9 +72,12 @@ def main():
     SLEEP_TIME_BETWEEN_PACKET_PROCESSING = 1.25
  
     # mode 00 is original btlejack mode, mode 01 is modified BT LE mode, mode 02 is BT Classic mode 
-    mode = 0x02
-    channel = 5
+    mode = 0x01
+    channel = 37
     counter = 0
+    current_target_addr = "FFAC123D"
+    target_pattern = bytes.fromhex(current_target_addr)
+
 
     #packet = bytes([mode, channel, 0xAA, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11,
                     #0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0xAA])
@@ -101,7 +104,7 @@ def main():
     # device eventuell angeben mit devices=[comports()[0]])???
     try:
         print(f"Sending")
-        sender = CLISendTestPacket(verbose=True, channel=channel, mode=mode, payload=packet)
+        sender = CLISendTestPacket(verbose=True, channel=channel, mode=mode, pattern=target_pattern, payload=packet)
         print("initiated sender")
     except DeviceError as error:
         print(
@@ -113,7 +116,7 @@ def main():
         #if (counter != 0 and counter % 8 == 0):
             #SLEEP_TIME_BETWEEN_PACKET_PROCESSING -= 0.001
             #print("New sleep time: {} at packet {} ".format(SLEEP_TIME_BETWEEN_PACKET_PROCESSING, counter))
-        sender.send_test_packet(packet, channel, mode)
+        sender.send_test_packet(packet, channel, mode, target_pattern)
         counter += 1
         print("Sent %d packets" %(counter+2))
         time.sleep(SLEEP_TIME_BETWEEN_PACKET_PROCESSING)

@@ -86,7 +86,7 @@ def main():
     global target_pattern
 
     # mode 00 is original btlejack mode, mode 01 is modified BT LE mode, mode 02 is BT Classic mode 
-    mode = 0x02; 
+    mode = 0x01; 
    
     current_target_addr = "FFAC123D"
     target_pattern = bytes.fromhex(current_target_addr)
@@ -104,7 +104,7 @@ def main():
     # start sniffer for pattern detection
     try:
         sniffer = CLIAdvertisementsSniffer(
-            verbose=True, channel=5, mode=mode,
+            verbose=True, channel=37, mode=mode, pattern=target_pattern,
             output=out, policy={"policy_type": "blacklist", "rules": []}, accept_invalid_crc=True, no_stdout=True)
     except DeviceError as error:
         print(
